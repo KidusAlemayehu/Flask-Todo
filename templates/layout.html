@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+    <title>FLASK | TODO-APP</title>
+</head>
+
+<body>
+    <div class="container align-center">
+        <div class="container">
+            <header class="text-center text-light">
+                <h1>Todo App</h1>
+            </header>
+        </div>
+        <div class="container">
+            <form action="/add" method="POST">
+                <div class="form-group">
+                    <label for="title" class="text-light">Enter Todo</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter title" id="" />
+                </div>
+                <button class="btn btn-primary" type="submit">Add Todo</button>
+            </form>
+        </div>
+        <br>
+        <div class="container">
+            <div class="row">
+                {% for todo in todo_list %}
+                <div class="col-lg-4">
+                    <div class="jumbotron">
+                        {% if todo.complete == False%}
+                        <h3>{{todo.id}} | {{todo.title}}</h3>
+                        <span class="badge badge-secondary">Not completed</span> {% else%}
+                        <h3>{{todo.id}} | <mark class="bg-primary text-light">{{todo.title}}</mark></h3>
+                        <span class="badge badge-success">Complete</span> {% endif%}
+                        <br>
+                        <hr>
+                        <a href="/update/{{todo.id}}" class="btn btn-primary">Update</a>
+                        <a href="/delete/{{todo.id}}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                {%endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
